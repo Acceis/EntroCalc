@@ -5,11 +5,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>EntroCalc - Calculateur d'entropie de mot de passe</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://www.acceis.fr/voy_content/uploads/2021/07/32.jpg" sizes="32x32" />
+  <!-- Icônes d'application -->
+  <link rel="shortcut icon" href="https://www.acceis.fr/voy_content/uploads/2021/07/48-1.jpg">
+  <link rel="apple-touch-icon" href="https://www.acceis.fr/voy_content/uploads/2021/07/32.jpg">
+  <link rel="apple-touch-icon" sizes="72x72" href="https://www.acceis.fr/voy_content/uploads/2021/07/72-1.jpg" />
+  <link rel="apple-touch-icon" sizes="144x144" href="https://www.acceis.fr/voy_content/uploads/2021/07/144-1.jpg" />
+  <meta name="msapplication-TileColor" content="#ed1c24" />
+  <meta name="msapplication-TileImage" content="https://www.acceis.fr/voy_content/uploads/2021/07/144-1.jpg" />
+  <meta name="theme-color" content="#ed1c24">
+  <!-- CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     integrity="sha256-rTpdO0HXBCNpreAHcu6tB2Ppg515Vo+5GtYSsnNLz+8=" crossorigin="anonymous">
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@creativebulma/bulma-tooltip@1.2.0/dist/bulma-tooltip.min.css"
     integrity="sha256-OdzWB7wl1AMkFaqhYBnoQJGUJMDAexXa44rXs/d2n4A=" crossorigin="anonymous">
+  <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script>
@@ -42,12 +54,16 @@
       });
     });
   </script>
+  <!-- SEO -->
+  <meta name="description"
+    content="EntroCalc est un site statique permettant de calculer l'entropie d'un mot de passe ou d'une politique de mot de passe en fonction de sa longueur et des jeux de caractères possibles et ainsi d'évaluer sa force." />
 </head>
 
 <body>
   <section class="section">
     <div class="container">
-      <h1 class="title is-1 has-text-primary">Calculateur d'entropie de mot de passe</h1>
+      <h1 class="title is-1"><span class="has-text-primary">EntroCalc</span> - Calculateur d'entropie de mot de passe
+      </h1>
       <h3 class="title is-3">Longueur</h3>
       <input class="input is-primary" type="number" value="8" min="1" id="longueur">
       <h3 class="title is-3">Jeux de caractères</h3>
@@ -141,13 +157,13 @@
         </p>
         <p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="32"
-            data-tooltip="32 symboles # $ % & @ ^ ` ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } (caractères spéciaux)">
+            data-tooltip="32 symboles # $ % & @ ^ <code> ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } (caractères spéciaux)">
             caractères spéciaux
           </button>
         </p>
         <p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="38"
-            data-tooltip="38 symboles # $ % & @ ^ ` ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } ° £ € ¤ µ § (caractères spéciaux étendus)">
+            data-tooltip="38 symboles # $ % & @ ^ <code> ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } ° £ € ¤ µ § (caractères spéciaux étendus)">
             caractères spéciaux étendus
           </button>
         </p>
@@ -206,14 +222,25 @@
         </tbody>
       </table>
       <h3 class="title is-3">Indications</h3>
-      <p>Attention ⚠ : l'entropie ne reflète qu'une force théorique basée sur le nombre de combinaisons possibles. En
-        effet, un mot de passe peu avoir une complexité théorique élevée, mais être très faible en pratique, par exemple
-        <code>Password123*</code>. C'est pourquoi il est important de générer ses mots de passe aléatoirement.</p>
-      <p>Cette page est inspirée du "<a
-          href="https://web.archive.org/web/20230109120945/https://www.ssi.gouv.fr/administration/precautions-elementaires/calculer-la-force-dun-mot-de-passe/">Calculateur
-          de force de mot de passe</a>" de l'<a href="https://cyber.gouv.fr/">ANSSI</a> qui a existé entre 2015 et 2023,
-        supprimé lors d'un changement de site web.</p>
-      <p>Le code source de la page est disponible sur le dépôt Github suivant : <a href="https://github.com/Acceis/EntroCalc">Acceis/EntroCalc</a>.</p>
+      <div class="content">
+        <p>Site statique (HTML / JavaScript) permettant de calculer l'entropie d'un mot de passe ou d'une politique de
+          mot de passe en fonction de sa longueur et des jeux de caractères possibles et ainsi d'évaluer sa force.</p>
+        <p>L'entropie d'un mot de passe est calculée avec la formule suivante : <code>log2(R^L)</code> où <code>R</code>
+          = le nombre de caractères possibles (longueur du jeu de caractère considéré) et <code>L</code> = la longueur
+          du mot de passe, soit <code>R^L</code> le nombre de combinaisons possibles.</p>
+        <p>Attention ⚠ : l'entropie ne reflète qu'une force théorique basée sur le nombre de combinaisons possibles. En
+          effet, un mot de passe peu avoir une complexité théorique élevée, mais être très faible en pratique, par
+          exemple
+          <code>Password123*</code>. C'est pourquoi il est important de générer ses mots de passe aléatoirement.
+        </p>
+        <p>Cette page est inspirée du "<a
+            href="https://web.archive.org/web/20230109120945/https://www.ssi.gouv.fr/administration/precautions-elementaires/calculer-la-force-dun-mot-de-passe/">Calculateur
+            de force de mot de passe</a>" de l'<a href="https://cyber.gouv.fr/">ANSSI</a> qui a existé entre 2015 et
+          2023,
+          supprimé lors d'un changement de site web.</p>
+        <p>Le code source de la page est disponible sur le dépôt Github suivant : <a
+            href="https://github.com/Acceis/EntroCalc">Acceis/EntroCalc</a>.</p>
+      </div>
       <h3 class="title is-3">Exemples</h3>
       <table class="table">
         <thead>
