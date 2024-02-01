@@ -45,6 +45,7 @@
           $(this).removeClass('is-outlined');
         } else {
           $(this).addClass('is-outlined');
+          $(this).blur(); // Corrige https://github.com/Acceis/EntroCalc/issues/1
         }
         entropie();
       });
