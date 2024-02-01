@@ -27,14 +27,17 @@
   <script>
     function entropie() {
       /* Calcul de l'entropie */
-      var jeu_de_char = 0;
+      var jeu_de_char = '';
       var longueur = parseInt($('#longueur').val());
       $('button').not('.is-outlined').each(function () {
-        jeu_de_char += parseInt($(this).val());
+        jeu_de_char += $(this).data('charset');
       });
+      // Supprime les valeurs dupliquées
+      jeu_de_char = [...new Set(jeu_de_char)].join("");
+      taille_jeu_de_char = [...jeu_de_char].length;
       $('#symboles').text(longueur);
-      $('#jeu-de-char').text(jeu_de_char);
-      $('#entropie').text(Math.round(Math.log2(jeu_de_char ** longueur)));
+      $('#jeu-de-char').text(taille_jeu_de_char);
+      $('#entropie').text(Math.round(Math.log2(taille_jeu_de_char ** longueur)));
     }
     /* Gestionnaire d'évènements */
     $(document).ready(function () {
@@ -71,115 +74,118 @@
       <h4 class="title is-4">Unitaires</h4>
       <div class="field is-grouped">
         <p class="control">
-          <button class="jeu-de-char button is-primary" value="26"
+          <button class="jeu-de-char button is-primary" value="26" data-charset="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             data-tooltip="26 symboles de A à Z (code alphabétique majuscule)">
             A-Z
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary" value="26"
+          <button class="jeu-de-char button is-primary" value="26" data-charset="abcdefghijklmnopqrstuvwxyz"
             data-tooltip="26 symboles de a à z (code alphabétique minuscule)">
             a-z
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary" value="10" data-tooltip="10 symboles de 0 à 9 (code décimal)">
+          <button class="jeu-de-char button is-primary" value="10" data-charset="0123456789"
+            data-tooltip="10 symboles de 0 à 9 (code décimal)">
             0-9
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="8"
+          <button class="jeu-de-char button is-primary is-outlined" value="8" data-charset="\#$%&@^`~"
             data-tooltip="8 symboles # $ % & @ ^ ` ~ (caractères spéciaux n°1)">
             # $ % & @ ^ ` ~
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="4"
+          <button class="jeu-de-char button is-primary is-outlined" value="4" data-charset=".,:;"
             data-tooltip="4 symboles . , : ; (caractères spéciaux n°2)">
             . , : ;
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="2"
+          <button class="jeu-de-char button is-primary is-outlined" value="2" data-charset="%22'"
             data-tooltip="2 symboles &quot; ' (caractères spéciaux n°3)">
             " '
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="5"
+          <button class="jeu-de-char button is-primary is-outlined" value="5" data-charset="\/|_-"
             data-tooltip="5 symboles \ / | _ - (caractères spéciaux n°4)">
             \ / | _ -
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="7"
+          <button class="jeu-de-char button is-primary is-outlined" value="7" data-charset="%3C%3E*+!?="
             data-tooltip="7 symboles &lt; &gt; * + ! ? = (caractères spéciaux n°5)">
             &lt; &gt; * + ! ? =
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="6"
+          <button class="jeu-de-char button is-primary is-outlined" value="6" data-charset="{[()]}"
             data-tooltip="6 symboles { [ ( ) ] } (caractères spéciaux n°6)">
             { [ ( ) ] }
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="5"
+          <button class="jeu-de-char button is-primary is-outlined" value="5" data-charset="éèùàç"
             data-tooltip="5 symboles é è ù à ç (lettres accentuées courantes avec touche sur clavier AZERTY)">
             é è ù à ç
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="6"
+          <button class="jeu-de-char button is-primary is-outlined" value="6" data-charset="âêëîïô"
             data-tooltip="6 symboles â ê ë î ï ô (lettres accentuées courantes sans touche sur clavier AZERTY)">
             â ê ë î ï ô
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="6"
+          <button class="jeu-de-char button is-primary is-outlined" value="6" data-charset="°£€¤µ§"
             data-tooltip="6 symboles ° £ € ¤ µ § (caractères spéciaux n°7, autres symboles sur clavier AZERTY)">
             ° £ € ¤ µ §
           </button>
         </p>
       </div>
-      <h4 class="title is-4">Combinés ou sous-ensembles</h4>
+      <h4 class="title is-4">Composés</h4>
       <div class="field is-grouped">
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="2"
+          <button class="jeu-de-char button is-primary is-outlined" value="2" data-charset="01"
             data-tooltip="2 symboles de 0 ou 1 (code binaire)">
             0-1
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="16"
+          <button class="jeu-de-char button is-primary is-outlined" value="16" data-charset="0123456789ABCDEF"
             data-tooltip="16 symboles 0 à 9 et A à F (code hexadécimal)">
             0-9 + A-F
           </button>
         </p>
         <p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="32"
-            data-tooltip="32 symboles # $ % & @ ^ <code> ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } (caractères spéciaux)">
+            data-charset="#$%&@^`~.,:;%22'%5C/|_-%3C%3E*+!?={[()]}"
+            data-tooltip="32 symboles # $ % & @ ^ ` ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } (caractères spéciaux)">
             caractères spéciaux
           </button>
         </p>
         <p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="38"
-            data-tooltip="38 symboles # $ % & @ ^ <code> ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } ° £ € ¤ µ § (caractères spéciaux étendus)">
+            data-charset="#$%&@^`~.,:;%22'%5C/|_-%3C%3E*+!?={[()]}°£€¤µ§"
+            data-tooltip="38 symboles # $ % & @ ^ ` ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } ° £ € ¤ µ § (caractères spéciaux étendus)">
             caractères spéciaux étendus
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="11"
+          <button class="jeu-de-char button is-primary is-outlined" value="11" data-charset="éèùàçâêëîïô"
             data-tooltip="11 symboles é è ù à ç â ê ë î ï ô (lettres accentuées courantes)">
             lettres accentuées
           </button>
         </p>
-        <p class="control">
+        <!--<p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="149813"
             data-tooltip="149813 symboles (Unicode version 15.1)">
             Unicode
           </button>
-        </p>
+        </p>-->
       </div>
       <h3 class="title is-3">Entropie</h3>
       <p>L'entropie du mot de passe de <span class="has-text-weight-bold has-text-primary" id="symboles">?</span>
