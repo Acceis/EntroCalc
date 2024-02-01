@@ -25,12 +25,17 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script>
+    function htmlDecode(str) {
+      var doc = new DOMParser().parseFromString(str, "text/html");
+      return doc.documentElement.textContent;
+    }
     function entropie() {
       /* Calcul de l'entropie */
       var jeu_de_char = '';
       var longueur = parseInt($('#longueur').val());
       $('button').not('.is-outlined').each(function () {
-        jeu_de_char += $(this).data('charset');
+        jeu_de_char += htmlDecode($(this).data('charset'));
+        console.log(htmlDecode($(this).data('charset')).length);
       });
       // Supprime les valeurs dupliquées
       jeu_de_char = [...new Set(jeu_de_char)].join("");
@@ -92,7 +97,7 @@
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="8" data-charset="\#$%&@^`~"
+          <button class="jeu-de-char button is-primary is-outlined" value="8" data-charset="#$%&@^`~"
             data-tooltip="8 symboles # $ % & @ ^ ` ~ (caractères spéciaux n°1)">
             # $ % & @ ^ ` ~
           </button>
@@ -104,7 +109,7 @@
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="2" data-charset="%22'"
+          <button class="jeu-de-char button is-primary is-outlined" value="2" data-charset="&quot;'"
             data-tooltip="2 symboles &quot; ' (caractères spéciaux n°3)">
             " '
           </button>
@@ -116,7 +121,7 @@
           </button>
         </p>
         <p class="control">
-          <button class="jeu-de-char button is-primary is-outlined" value="7" data-charset="%3C%3E*+!?="
+          <button class="jeu-de-char button is-primary is-outlined" value="7" data-charset="&lt;&gt;*+!?="
             data-tooltip="7 symboles &lt; &gt; * + ! ? = (caractères spéciaux n°5)">
             &lt; &gt; * + ! ? =
           </button>
@@ -162,14 +167,14 @@
         </p>
         <p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="32"
-            data-charset="#$%&@^`~.,:;%22'%5C/|_-%3C%3E*+!?={[()]}"
+            data-charset="#$%&@^`~.,:;&quot;'\/|_-&lt;&gt;*+!?={[()]}"
             data-tooltip="32 symboles # $ % & @ ^ ` ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } (caractères spéciaux)">
             caractères spéciaux
           </button>
         </p>
         <p class="control">
           <button class="jeu-de-char button is-primary is-outlined" value="38"
-            data-charset="#$%&@^`~.,:;%22'%5C/|_-%3C%3E*+!?={[()]}°£€¤µ§"
+            data-charset="#$%&@^`~.,:;&quot;'\/|_-&lt;&gt;*+!?={[()]}°£€¤µ§"
             data-tooltip="38 symboles # $ % & @ ^ ` ~ . , : ; &quot; ' \ / | _ - &lt; &gt; * + ! ? = { [ ( ) ] } ° £ € ¤ µ § (caractères spéciaux étendus)">
             caractères spéciaux étendus
           </button>
