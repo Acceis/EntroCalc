@@ -240,53 +240,65 @@
               id="robustesse">?</span>.</p>
       </div>
       <hr class="has-background-primary">
-      <h3 class="title is-3">Force théorique</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Entropie</th>
-            <th>Force théorique</th>
-          </tr>
-        </thead>
-        <tfoot>
-          <th>Entropie</th>
-          <th>Force théorique</th>
-        </tfoot>
-        <tbody>
-          <tr>
-            <td>1 &lt; 64</td>
-            <td class="has-background-dark has-text-light">très faible</td>
-          </tr>
-          <tr>
-            <td>64 &lt; 80</td>
-            <td class="has-background-danger">faible</td>
-          </tr>
-          <tr>
-            <td>80 &lt; 100</td>
-            <td class="has-background-warning">moyen</td>
-          </tr>
-          <tr>
-            <td>100 &lt; 128</td>
-            <td class="has-background-success">fort</td>
-          </tr>
-          <tr>
-            <td>≥ 128</td>
-            <td class="has-background-success-dark has-text-light">fort (longue durée)</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="columns">
+        <div class="column is-one-quarter ">
+          <h3 class="title is-3">Force théorique</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Entropie</th>
+                <th>Force théorique</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <th>Entropie</th>
+              <th>Force théorique</th>
+            </tfoot>
+            <tbody>
+              <tr>
+                <td>1 &lt; 64</td>
+                <td class="has-background-dark has-text-light">très faible</td>
+              </tr>
+              <tr>
+                <td>64 &lt; 80</td>
+                <td class="has-background-danger">faible</td>
+              </tr>
+              <tr>
+                <td>80 &lt; 100</td>
+                <td class="has-background-warning">moyen</td>
+              </tr>
+              <tr>
+                <td>100 &lt; 128</td>
+                <td class="has-background-success">fort</td>
+              </tr>
+              <tr>
+                <td>≥ 128</td>
+                <td class="has-background-success-dark has-text-light">fort (longue durée)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="column is-auto">
+          <h3 class="title is-3">L'entropie, qu'est-ce que c'est ?</h3>
+          <div class="content">
+            <p>Communément, on parle de « force » d’un mot de passe pour désigner sa capacité à résister à une énumération de toutes les combinaisons de mots de passe possibles (attaque par force brute).</p>
+            <p>La force d’un mot de passe peut être estimée par comparaison avec les techniques cryptographiques, ce qui serait l'équivalent d'une taille de clé.</p>
+            <p>Cette force, robustesse ou taille de clé est exprimée en termes d'entropie de Shannon, mesurée en bits. Cette unité de mesure est plus pratique que d'exprimer le nombre de combinaisons maximal nécessaire à trouver le mot de passe.</p>
+            <p>Attention ⚠ : l'entropie ne reflète qu'une force théorique basée sur le nombre de combinaisons possibles. En
+              effet, un mot de passe peu avoir une complexité théorique élevée, mais être très faible en pratique, par
+              exemple
+              <code>Password123*</code>. C'est pourquoi il est important de générer ses mots de passe aléatoirement.
+            </p>
+            <p>L'entropie d'un mot de passe est calculée avec la formule suivante : <code>log2(R^L)</code> où <code>R</code>
+              = le nombre de caractères possibles (longueur du jeu de caractère considéré) et <code>L</code> = la longueur
+              du mot de passe, soit <code>R^L</code> le nombre de combinaisons possibles.</p>
+          </div>
+        </div>
+      </div>
       <h3 class="title is-3">Indications</h3>
       <div class="content">
-        <p>Site statique (HTML / JavaScript) permettant de calculer l'entropie d'un mot de passe ou d'une politique de
+        <p class="has-text-weight-bold">Site statique (HTML / JavaScript) permettant de calculer l'entropie d'un mot de passe ou d'une politique de
           mot de passe en fonction de sa longueur et des jeux de caractères possibles et ainsi d'évaluer sa force.</p>
-        <p>L'entropie d'un mot de passe est calculée avec la formule suivante : <code>log2(R^L)</code> où <code>R</code>
-          = le nombre de caractères possibles (longueur du jeu de caractère considéré) et <code>L</code> = la longueur
-          du mot de passe, soit <code>R^L</code> le nombre de combinaisons possibles.</p>
-        <p>Attention ⚠ : l'entropie ne reflète qu'une force théorique basée sur le nombre de combinaisons possibles. En
-          effet, un mot de passe peu avoir une complexité théorique élevée, mais être très faible en pratique, par
-          exemple
-          <code>Password123*</code>. C'est pourquoi il est important de générer ses mots de passe aléatoirement.
-        </p>
         <p>Cette page est inspirée du "<a
             href="https://web.archive.org/web/20230109120945/https://www.ssi.gouv.fr/administration/precautions-elementaires/calculer-la-force-dun-mot-de-passe/">Calculateur
             de force de mot de passe</a>" de l'<a href="https://cyber.gouv.fr/">ANSSI</a> qui a existé entre 2015 et
@@ -295,6 +307,7 @@
         <p>Le code source de la page est disponible sur le dépôt Github suivant : <a
             href="https://github.com/Acceis/EntroCalc">Acceis/EntroCalc</a>. Outil dévellopé par <a href="https://pwn.by/noraj/">Alexandre ZANNI alias noraj</a>, Ingénieur en Test d’Intrusion chez <a href="https://www.acceis.fr/">ACCEIS</a>.
         </p>
+        <p>Les personnes désireuses d'approfondir le sujet pourront consulter le guide de l'ANSSI « <a href="https://cyber.gouv.fr/publications/recommandations-relatives-lauthentification-multifacteur-et-aux-mots-de-passe">Recommandations relatives à l'authentification multifacteur et aux mots de passe</a> ».</p>
       </div>
       <h3 class="title is-3">Exemples</h3>
       <table class="table">
