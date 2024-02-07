@@ -42,7 +42,34 @@
       taille_jeu_de_char = [...jeu_de_char].length;
       $('#symboles').text(longueur);
       $('#jeu-de-char').text(taille_jeu_de_char);
-      $('#entropie').text(Math.round(Math.log2(taille_jeu_de_char ** longueur)));
+      var entropie = Math.round(Math.log2(taille_jeu_de_char ** longueur));
+      $('#entropie').text(entropie);
+      robustesse(entropie);
+    }
+    function robustesse(entropie) {
+      /* Calcul de la force théorique et applique le style correspondant */
+      var rob = $('#robustesse');
+      if (entropie < 64) {
+        rob.text('très faible');
+        rob.removeClass();
+        rob.addClass('has-text-weight-bold has-background-dark has-text-light');
+      } else if (entropie >= 64 && entropie < 80) {
+        rob.text('faible');
+        rob.removeClass();
+        rob.addClass('has-text-weight-bold has-background-danger');
+      } else if (entropie >= 80 && entropie < 100) {
+        rob.text('moyen');
+        rob.removeClass();
+        rob.addClass('has-text-weight-bold has-background-warning');
+      } else if (entropie >= 100 && entropie < 128) {
+        rob.text('fort');
+        rob.removeClass();
+        rob.addClass('has-text-weight-bold has-background-success');
+      } else if (entropie > 128) {
+        rob.text('fort (longue durée)');
+        rob.removeClass();
+        rob.addClass('has-text-weight-bold has-background-success-dark has-text-light');
+      }
     }
     /* Gestionnaire d'évènements */
     $(document).ready(function () {
@@ -83,11 +110,12 @@
     <div class="container">
       <h1 class="title is-1"><span class="has-text-primary">EntroCalc</span> - Calculateur d'entropie de mot de passe
       </h1>
+      <hr class="has-background-primary">
       <div class="round-border has-background-light">
         <h3 class="title is-3">Longueur (nombre de caractères)</h3>
         <input class="input is-primary" type="number" value="8" min="1" id="longueur">
         <h3 class="title is-3">Jeux de caractères</h3>
-        <h4 class="title is-4">Unitaires</h4>
+        <h4 class="title is-4 has-text-grey-dark">Unitaires</h4>
         <div class="field is-grouped buttons">
           <p class="control">
             <button class="jeu-de-char button is-primary" value="26" data-charset="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -162,7 +190,7 @@
             </button>
           </p>
         </div>
-        <h4 class="title is-4">Composés</h4>
+        <h4 class="title is-4 has-text-grey-dark">Composés</h4>
         <div class="field is-grouped buttons">
           <p class="control">
             <button class="jeu-de-char button is-primary is-outlined" value="2" data-charset="01"
@@ -204,10 +232,12 @@
           </p>-->
         </div>
         <h3 class="title is-3">Entropie</h3>
-        <p>L'entropie du mot de passe de <span class="has-text-weight-bold has-text-primary" id="symboles">?</span>
+        <p class="is-size-4">L'entropie du mot de passe de <span class="has-text-weight-bold has-text-primary" id="symboles">?</span>
           symboles sélectionnés aléatoirement parmi un jeu de <span class="has-text-weight-bold has-text-primary"
             id="jeu-de-char">?</span> caractères est de <span class="has-text-weight-bold has-text-primary"
             id="entropie">?</span> bits.</p>
+            <p class="is-size-4">Ce mot de passe est théoriquement <span class="has-text-weight-bold has-text-primary"
+              id="robustesse">?</span>.</p>
       </div>
       <hr class="has-background-primary">
       <h3 class="title is-3">Force théorique</h3>
@@ -225,23 +255,23 @@
         <tbody>
           <tr>
             <td>1 &lt; 64</td>
-            <td>très faible</td>
+            <td class="has-background-dark has-text-light">très faible</td>
           </tr>
           <tr>
             <td>64 &lt; 80</td>
-            <td>faible</td>
+            <td class="has-background-danger">faible</td>
           </tr>
           <tr>
             <td>80 &lt; 100</td>
-            <td>moyen</td>
+            <td class="has-background-warning">moyen</td>
           </tr>
           <tr>
             <td>100 &lt; 128</td>
-            <td>fort</td>
+            <td class="has-background-success">fort</td>
           </tr>
           <tr>
             <td>≥ 128</td>
-            <td>fort (longue durée)</td>
+            <td class="has-background-success-dark has-text-light">fort (longue durée)</td>
           </tr>
         </tbody>
       </table>
@@ -263,7 +293,8 @@
           2023,
           supprimé lors d'un changement de site web.</p>
         <p>Le code source de la page est disponible sur le dépôt Github suivant : <a
-            href="https://github.com/Acceis/EntroCalc">Acceis/EntroCalc</a>.</p>
+            href="https://github.com/Acceis/EntroCalc">Acceis/EntroCalc</a>. Outil dévellopé par <a href="https://pwn.by/noraj/">Alexandre ZANNI alias noraj</a>, Ingénieur en Test d’Intrusion chez <a href="https://www.acceis.fr/">ACCEIS</a>.
+        </p>
       </div>
       <h3 class="title is-3">Exemples</h3>
       <table class="table">
@@ -287,42 +318,42 @@
           <tr>
             <td>Mot de passe de 8 caractères dans un alphabet de 70 symboles</td>
             <td>49</td>
-            <td>très faible</td>
+            <td class="has-background-dark has-text-light">très faible</td>
             <td><code>Azerty0*</code></td>
             <td><code>5@&kmnY&</code></td>
           </tr>
           <tr>
             <td>Mot de passe de 10 caractères dans un alphabet de 90 symboles</td>
             <td>65</td>
-            <td>faible</td>
+            <td class="has-background-danger">faible</td>
             <td><code>1Chocolat€</code></td>
             <td><code>7w<:]KY&"\</code></td>
           </tr>
           <tr>
             <td>Mot de passe de 12 caractères dans un alphabet de 90 symboles</td>
             <td>78</td>
-            <td>faible</td>
+            <td class="has-background-danger">faible</td>
             <td><code>Inf0rm4t!que</code></td>
             <td><code>(;@"x/%Y.3R!</code></td>
           </tr>
           <tr>
             <td>Mot de passe de 16 caractères dans un alphabet de 36 symboles</td>
             <td>82</td>
-            <td>moyen</td>
+            <td class="has-background-warning">moyen</td>
             <td><code>ANNIVERSAIRE1994</code></td>
             <td><code>HE73HJZMM9P4JY7A</code></td>
           </tr>
           <tr>
             <td>Mot de passe de 16 caractères dans un alphabet de 90 symboles</td>
             <td>104</td>
-            <td>fort</td>
+            <td class="has-background-success">fort</td>
             <td><code>%Soleil22soleiL%</code></td>
             <td><code>.4=R*Nj{_!D#5u'g</code></td>
           </tr>
           <tr>
             <td>Mot de passe de 20 caractères dans un alphabet de 90 symboles</td>
             <td>130</td>
-            <td>fort (longue durée)</td>
+            <td class="has-background-success-dark has-text-light">fort (longue durée)</td>
             <td><code>MonEntrepriseDe2024!</code></td>
             <td><code>Fr+-!',"MS~3f9m>(RTC</code></td>
           </tr>
